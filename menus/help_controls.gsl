@@ -1,0 +1,21 @@
+Help
+
+>Scene
+	[level
+		-name="Help Screen"
+		-start_action="self.camera_bound=False"
+>VisibleObject
+	[background
+		-location=[0.5, 0.5]
+		-image_pack="background1"
+>TextWall
+        [controls
+		-location=[0.27, 0.1]
+		-size=[0.5,0.07]
+		-dimension_modifier=0.35
+		-color=[0,150,0]
+		-text="scroll up - zoom in\nscroll down - zoom out\nC - lock/unlock camera\nQ - previos camera target\nE - next camera target\nWSAD - move camera\nESC - quit"
+>Button
+	[quit_screen_button
+		-location=[0.5, 0.5]
+		-down_action="self.scene.end()" 

@@ -1,0 +1,112 @@
+Main Menu
+
+>Scene
+	[level
+		-name="Main Menu"
+
+>VisibleObject
+	[background
+		-location=[0.5, 0.5]
+		-size=[1.0, 1.0]
+		-image_pack="background1"
+	[play
+		-location=[0.5, 0.5]
+		-size=[0.3, 0.1]
+		-image_pack="button2"
+	[quit
+		-location=[0.5, 0.8]
+		-size=[0.3, 0.1]
+		-image_pack="button2"
+	[previous_level
+		-location=[0.1, 0.1]
+		-size=[0.1, 0.1]
+		-image_pack="left_arrow_button1"
+	[next_level
+		-location=[0.25, 0.1]
+		-size=[0.1, 0.1]
+		-image_pack="right_arrow_button1"
+	[options
+		-location=[0.75,0.65]
+		-size=[0.1,0.1]
+		-image_pack="options_button"
+	[help
+		-location=[0.5, 0.65]
+		-size=[0.3, 0.1]
+		-image_pack="button2"
+	[credits_backround
+		-location=[0.8, 0.5]
+		-size=[0.2, 0.1]
+		-image_pack="button2"
+
+
+>Button
+	[play_button
+		-location=[0.5, 0.5]
+		-size=[0.3, 0.1]
+		-down_action="self.scene.game.play_level()"
+	[quit_button
+		-location=[0.5, 0.8]
+		-size=[0.3, 0.1]
+		-down_action="self.scene.end()"
+	[previous_level_button
+		-location=[0.1, 0.1]
+		-size=[0.1, 0.1]
+		-down_action="self.scene.game.change_level(-1)"
+	[next_level_button
+		-location=[0.25, 0.1]
+		-size=[0.1, 0.1]
+		-down_action="self.scene.game.change_level(1)"
+	[options_button
+		-location=[0.75,0.65]
+		-size=[0.1,0.1]
+		-down_action="self.scene.game.load_run('menus/options.gsl')"
+	[help_button
+		-location=[0.5, 0.65]
+		-size=[0.3, 0.1]
+		-down_action="self.scene.game.load_run('menus/help.gsl')"
+	[credits_button
+		-location=[0.8, 0.5]
+		-size=[0.2, 0.1]
+		-down_action="self.scene.game.load_run('menus/credits.gsl');print(9)"
+
+>TextObject
+	[level_name
+		-bound=True
+		-text="self.scene.game.level_info[0]"
+		-max_chars=16
+		-size=[0.3, 0.1]
+		-location=[0.2, 0.2]
+	[level_time
+		-bound=True
+		-text="self.scene.game.level_info[1]"
+		-max_chars=8
+		-size=[0.3, 0.1]
+		-location=[0.2, 0.3]
+	[level_pass
+		-bound=True
+		-text="self.scene.game.level_info[2]"
+		-max_chars=16
+		-size=[0.3, 0.1]
+		-location=[0.2, 0.4]
+
+	[quit_text
+		-location=[0.5, 0.81]
+		-size=[0.25, 0.1]
+		-text="QUIT"
+	[play_text
+		-location=[0.5, 0.51]
+		-size=[0.25, 0.1]
+		-text="PLAY"
+	[help_text
+		-location=[0.5, 0.66]
+		-size=[0.25, 0.1]
+		-text="HELP"
+	[credits_text
+		-location=[0.8, 0.5]
+		-size=[0.17, 0.1]
+		-text="CREDITS"
+	[credits
+		-location=[0.7,0.95]
+		-size=[0.45, 0.05]
+		-max_chars=32
+		-text="Made by Michal Nieznanski"

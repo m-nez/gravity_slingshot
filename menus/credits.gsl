@@ -1,0 +1,36 @@
+Help
+
+>Scene
+	[level
+		-name="Credits"
+>VisibleObject
+	[background
+		-location=[0.5, 0.5]
+		-image_pack="background1"
+>TextWall
+   	[Prog_Des
+		-location=[0.5, 0.1]
+		-size=[0.5,0.07]
+		-dimension_modifier=0.35
+		-color=[200,150,0]
+		-stretch=False
+		-text="Programming, Design: Michal Nieznanski"
+	[Music
+		-location=[0.25, 0.2]
+		-size=[0.5,0.07]
+		-dimension_modifier=0.35
+		-color=[200,150,0]
+		-stretch=False
+		-text="Music:"
+    [Music_column1
+		-location=[0.25, 0.3]
+		-size=[0.5,0.07]
+		-dimension_modifier=0.35
+		-color=[200,150,0]
+		-stretch=False
+		-text="Gregoire Lourme"
+
+>Button
+	[quit_screen_button
+		-location=[0.5, 0.5]
+		-down_action="self.scene.end()" 

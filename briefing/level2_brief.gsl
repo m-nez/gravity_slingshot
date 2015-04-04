@@ -1,0 +1,15 @@
+Briefing 2
+>Scene
+        [level
+>TextWall
+        [brief
+                -text="It seems you will have to\ntraverse the galaxy until you find a place suitable\nfor landing."
+                -size=[1.0,0.08]
+                -dimension_modifier=0.35
+                -location=[0.5,0.1]
+                -color=[180,130,0]
+>Button
+        [quit
+                -location=[0.5,0.5]
+                -size=[1.0,1.0]
+                -down_action="self.scene.end()"

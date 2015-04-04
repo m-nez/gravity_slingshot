@@ -1,0 +1,17 @@
+Success
+
+>Scene
+	[level
+		-name="Success Screen"
+		-clear_buffer = False
+>TextObject
+	[fail_text
+		-location=[0.5, 0.5]
+		-size=[0.8,0.3]
+		-text="Mission: Success"
+		-max_chars = 16
+>Button
+	[quit_screen_button
+		-location=[0.5, 0.5]
+                -size=[1.0, 1.0]
+		-down_action="self.scene.end()" 

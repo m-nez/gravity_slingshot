@@ -1,0 +1,87 @@
+Level 2
+>Scene
+        [level
+                -name="level 1"
+                -goal_hit_to_win=1
+                -attractor_hit_to_lose=1
+                -camera=[-500,-500]
+                -scale=0.25
+>VisibleObject
+        [background
+                -name="background"
+                -image_pack="background1"
+                -location=[0.5, 0.5]
+        [timer_background
+                -location=[0.8,0.05]
+                -size=[0.4,0.1]
+                -image_pack="button2"
+        [attraction_background
+                -location=[0.84,0.15]
+                -size=[0.30,0.08]
+                -image_pack="button2"
+>Slider
+        [slider
+                -location=[0.05,0.5]
+                -length=0.8
+                -value = 0.0
+                -action = "self.scene.attraction = self.value * 1000000"
+                -vis_obj.location=[0.05,0.5]
+                -vis_obj.size=[0.1,1.0]
+                -vis_obj.image_pack="slider"
+                -render_layer=3
+                -button.vis_obj.image_pack="slider_button"
+                -button.vis_obj.size = [0.1, 0.05]
+                -button.size = [0.1, 0.05]
+                -button.vis_obj.render_layer = 3
+>TextObject
+        [timer
+                -location=[0.8,0.05]
+                -size=[0.35,0.09]
+                -bound=True
+                -text="self.scene.time.cached_time"
+                -changing=True
+                -max_chars=8
+        [attraction
+                -location=[0.84,0.15]
+                -size=[0.25,0.09]
+                -bound=True
+                -text="self.scene.attraction"
+                -changing=True
+                -max_chars=8
+>PhysicalObject
+        [escape_pod
+                -name="planet"
+                -image_pack="escape_pod"
+                -mass=2.0
+                -radius=126
+                -location=[100,100]
+                -velocity=[200, -50]
+                -affected_by_gravity=True
+                -path.active = True
+                -path.image_pack="marker_white1"
+                -path.period = 1
+        [attractor1
+                -attractor=True
+                -mass=1000
+                -image_pack="attractor1"
+                -location=[1000, 700]
+                -size=[1,1]
+                -radius=120
+        [attractor2
+                -attractor=True
+                -mass=1000
+                -image_pack="attractor1"
+                -location=[2500, 800]
+        [goal
+                -location=[2800, 1100]
+                -goal = True
+                -image_pack="wormhole1"
+                -radius=120
+        [sun
+                -name="Sun"
+                -location=[2800, 200]
+                -obstacle=True
+                -image_pack="sun1"
+                -mass=100000000
+                -size=[2,2]
+                -radius=240.0

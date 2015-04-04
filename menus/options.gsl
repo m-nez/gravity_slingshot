@@ -1,0 +1,135 @@
+Options
+
+>Scene
+	[level
+		-name="Options"
+
+>VisibleObject
+	[background
+		-location=[0.5, 0.5]
+		-size=[1.0, 1.0]
+		-image_pack="background1"
+	[apply
+		-location=[0.5, 0.65]
+		-size=[0.3, 0.1]
+		-image_pack="button2"
+	[main_menu
+		-location=[0.5, 0.8]
+		-size=[0.3, 0.1]
+		-image_pack="button2"
+	[fullscreen_toggle
+		-size=[0.08,0.08]
+		-location=[0.7,0.2]
+		-image_pack="button2"
+	[resolution_previous
+		-size=[0.08,0.08]
+		-location=[0.7,0.3]
+		-image_pack="left_arrow_button1"
+	[resolution_next
+		-size=[0.08,0.08]
+		-location=[0.8,0.3]
+		-image_pack="right_arrow_button1"
+>Button
+	[apply_button
+		-location=[0.5,0.65]
+		-size=[0.3,0.1]
+		-down_action="self.scene.game.save_display(self.scene.window.modes[self.scene.window.mode_index]);self.scene.game.load_display();self.scene.window.set();self.scene.game.redraw_all_scenes()"
+	[main_menu_button
+		-location=[0.5, 0.8]
+		-size=[0.3, 0.1]
+		-down_action="self.scene.end();self.scene.game.load_display()"
+	[fullscreen_button
+		-size=[0.08,0.08]
+		-location=[0.7,0.2]
+		-down_action="self.scene.window.fullscreen=bool((self.scene.window.fullscreen-1)%2)"
+	[resolution_previous_button
+		-size=[0.08,0.08]
+		-location=[0.7,0.3]
+		-down_action="self.scene.window.mode_index=(self.scene.window.mode_index+1)%len(self.scene.window.modes)"
+	[resolution_next_button
+		-size=[0.08,0.08]
+		-location=[0.8,0.3]
+		-down_action="self.scene.window.mode_index=(self.scene.window.mode_index-1)%len(self.scene.window.modes)"
+>TextObject
+	[fullscreen
+		-text="Fullscreen:"
+		-max_chars=16
+		-size=[0.3, 0.1]
+		-location=[0.2, 0.2]
+	[fullscreen_state
+		-bound=True
+		-text="self.scene.window.fullscreen"
+		-changing=True
+		-max_chars=16
+		-size=[0.1, 0.1]
+		-location=[0.4, 0.2]
+	[apply_text
+		-location=[0.50,0.66]
+		-size=[0.25,0.1]
+		-text="APPLY"
+	[main_menu_text
+		-location=[0.50,0.81]
+		-size=[0.25,0.1]
+		-text="MAIN MENU"
+		-max_chars=16
+	[resolution_text
+		-text="Resolution:"
+		-max_chars=16
+		-size=[0.3, 0.1]
+		-location=[0.2, 0.3]
+	[resolution_value
+		-bound=True
+		-text="self.scene.window.modes[self.scene.window.mode_index]"
+		-changing=True
+		-max_chars=16
+		-size=[0.3, 0.1]
+		-location=[0.5, 0.3]
+	[fps_text
+		-text="FPS:"
+		-max_chars=16
+		-size=[0.2, 0.1]
+		-location=[0.2, 0.1]
+        [fps_value
+                -text="self.scene.window.fps"
+                -bound=True
+                -max_chars=4
+                -size=[0.1, 0.1]
+                -location=[0.4, 0.1]
+		-changing=True
+	[volume_text
+		-text="Volume:"
+		-max_chars=16
+		-size=[0.3, 0.1]
+		-location=[0.2, 0.4]
+>Slider
+	[fps_slider
+		-location=[0.7,0.1]
+		-length=0.3
+		-value=0.5
+		-action="self.scene.window.fps=1 + int(self.value*59.0)"
+		-vertical=False
+		-inverse=True
+		-vis_obj.location=[0.7,0.1]
+		-vis_obj.size=[0.4,0.1]
+		-vis_obj.image_pack="horizontal_slider"
+		-vis_obj.render_layer=4
+		-button.vis_obj.size=[0.05,0.1]
+		-button.vis_obj.image_pack="horizontal_slider_button"
+		-button.vis_obj.render_layer=5
+		-button.size=[0.05,0.1]
+	[volume_slider
+		-location=[0.7,0.4]
+		-length=0.3
+		-value=0.5
+		-action="self.scene.game.channel.set_volume(self.value)"
+		-vertical=False
+		-inverse=True
+		-vis_obj.location=[0.7,0.4]
+		-vis_obj.size=[0.4,0.1]
+		-vis_obj.image_pack="horizontal_slider"
+		-vis_obj.render_layer=4
+		-button.vis_obj.size=[0.05,0.1]
+		-button.vis_obj.image_pack="horizontal_slider_button"
+		-button.vis_obj.render_layer=5
+		-button.size=[0.05,0.1]
+		

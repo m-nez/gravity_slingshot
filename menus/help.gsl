@@ -1,0 +1,39 @@
+Help
+
+>Scene
+	[level
+		-name="Help Screen"
+		-start_action="self.camera_bound=False"
+>VisibleObject
+	[background
+		-location=[0.5, 0.5]
+		-image_pack="background1"
+	[goal
+		-location=[0.8, 0.2]
+		-image_pack="wormhole1"
+		-size=[0.2, 0.2]
+        [escape_pod
+                -location=[0.6, 0.4]
+                -image_pack="escape_pod"
+                -size=[0.2, 0.2]
+        [attractor
+                -location=[0.8, 0.8]
+                -size=[0.3,0.3]
+                -image_pack="attractor1"
+>TextWall
+        [description
+		-location=[0.27, 0.1]
+		-size=[0.5,0.07]
+		-dimension_modifier=0.35
+		-color=[0,150,0]
+		-text="Your goal is to maneuver\nyour escape pod into level's target\n-usually a tachyon.\n"
+        [slider
+                -location=[0.27, 0.4]
+                -size=[0.5,0.07]
+                -dimension_modifier=0.35
+                -color=[0,150,0]
+                -text="Use the slider on the left side\nof the screen\nto adjust power level of attractors"
+>Button
+	[quit_screen_button
+		-location=[0.5, 0.5]
+		-down_action="self.scene.end();self.scene.game.load_run('menus/help_controls.gsl')" 

@@ -1,0 +1,25 @@
+Fail
+
+>Scene
+	[level
+		-name="Fail Screen"
+		-clear_buffer = False
+>VisibleObject
+	[error_background
+		-image_pack="button2"
+		-size=[0.55,0.1]
+		-location=[0.7,0.1]
+>TextObject
+	[error_text
+		-location=[0.7, 0.1]
+		-size=[0.5,0.1]
+		-color=[200,0,0]
+		-text="self.scene.game.error_message"
+		-bound=True
+		-stretch=True
+		-max_chars = 64
+>Button
+	[quit_screen_button
+		-location=[0.5, 0.5]
+        -size=[1.0, 1.0]
+		-down_action="self.scene.end()"

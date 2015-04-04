@@ -1,0 +1,24 @@
+>Scene
+        [level
+                -time_limit = 4.0
+>VisibleObject
+        [logo
+                -size=[0.5, 0.5]
+                -location=[0.5, 0.6]
+                -image_pack="logo"
+>TextObject
+        [title
+                -size=[0.7, 0.2]
+                -location=[0.5,0.2]
+                -stretch=True
+                -text="GRAVITY SLINGSHOT"
+        [author
+                -size=[0.5, 0.1]
+                -location = [0.5,0.9]
+                -stretch=True
+                -text="by Michal Nieznanski"
+>Button
+        [quit
+                -down_action="self.scene.end()"
+                -location=[0.5,0.5]
+                -size=[1.0,1.0]
