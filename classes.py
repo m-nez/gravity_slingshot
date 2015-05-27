@@ -39,7 +39,7 @@ class Window:
         pygame.display.set_caption(self.caption)
         flag = 0
         if self.fullscreen:
-            flag = pygame.FULLSCREEN
+            flag |= pygame.FULLSCREEN
 
         self.screen = pygame.display.set_mode(self.size, flag)
     def set_size(self, new_size):
@@ -76,7 +76,7 @@ class Time:
         self.timer_run = True
     def wait_frame(self, fps=30):
         dt = time() - self.current_time
-        if dt < 1/fps:
+        if dt < 1.0/fps:
             sleep(1.0/fps - dt)
 
 class VisibleObject:
@@ -126,6 +126,33 @@ class VisibleObject:
     def frame_next(self):
         if self.scaled_images != []:
             self.frame = (self.frame + 1) % len(self.images)
+
+
+
+    def scale_images2(self):
+        self.scaled_images = []
+        if self.fixed:
+            for img in self.images:
+                self.scaled_images.append(
+                    pygame.Surface(
+                        (
+                        int(self.size[0] * self.scene.window.size[0]),
+                        int(self.size[1] * self.scene.window.size[1])
+                        ), img)
+                    )
+
+        else:
+            for img in self.images:
+                self.scaled_images.append(
+                    pygame.Surface(
+                        (
+                        int(img.get_width()*self.scale*self.size[0]),
+                        int(img.get_height()*self.scale*self.size[1])
+                        ), img)
+                    )
+
+
+
     def scale_images(self):
         self.scaled_images = []
         if self.fixed:
@@ -266,13 +293,13 @@ class Button(VisibleObject):
         self.up_action = "None"
         self.vis_obj = VisibleObject()
         self.vis_obj.button = self
-        self.image_pack = None
         self.clicked = False
         self.slider = None
     def add_to_scene(self, scene):
         scene.button_objects.append(self)
         self.scene = scene
-        self.vis_obj.add_to_scene(scene)
+        if self.vis_obj.image_pack != None:
+            self.vis_obj.add_to_scene(scene)
     def play_action(self, action):
         exec(action)
     def mouse_over(self, pos):
@@ -281,7 +308,7 @@ class Button(VisibleObject):
                 return True
         return False
     def draw(self):
-        if self.vis_obj != None:
+        if self.vis_obj.image_pack != None:
             self.vis_obj.draw()
 
 class Slider():
@@ -613,13 +640,14 @@ class Scene:
         for obj in self.text_objects:
             obj.generate_image()
     def draw(self, clear = True):
+        Dt = DebugTimer()
         if clear:
             self.window.clear_screen()
+        #Dt.start()
         for layer in self.render_layers:
             for obj in layer:
                 obj.draw()
-
-
+                #Dt.spst([obj, obj.name])
 
         self.window.flip()
     def set_scale(self, new_scale):
@@ -795,3 +823,39 @@ class Scene:
             self.time.wait_frame(self.window.fps)
 
         return self.outcome()
+
+class DebugTimer:
+    def __init__(self):
+        self.bt = 0.0
+        self.at = 0.0
+        self.running = False
+        self.base_size = 13
+        self.base = []
+        for i in range(self.base_size):
+            self.base.append(0.0)
+        self.num_samples = 0
+    def start(self):
+        self.bt = time()
+        self.running = False
+    def stop(self, mess):
+        self.at = time()
+        print(mess, self.at - self.bt)
+    def spst(self, mess):
+        self.at = time()
+        print(mess, self.at - self.bt)
+        self.bt = time()
+    def spst_to_base(self, num):
+        self.at = time()
+        self.base[num] += self.at - self.bt
+        self.bt = time()
+    def sample_add(self):
+        self.num_samples += 1
+    def print_base(self):
+        for i in range(self.base_size):
+            print(i, self.base[i]/self.num_samples)
+    def sum_avg_base(self):
+        s = 0.0
+        for i in range(self.base_size):
+            s += self.base[i]
+        s/=self.num_samples
+        return s
