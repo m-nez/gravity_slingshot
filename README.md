@@ -12,7 +12,7 @@ Gravity based game written in python using pygame
 by [Gregoire Lourme](https://www.jamendo.com/en/artist/560/gregoire-lourme)
 
 #License
-Files in directories:
+Files in directories:  
 -images  
 -menus  
 -levels  
