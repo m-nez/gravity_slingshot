@@ -9,4 +9,13 @@ Gravity based game written in python using pygame
   Just run the The_Game.py script
 
 #Music
-by [Gregoire Lourme](https://www.jamendo.com/en/artist/560/grgoire-lourme)
+by [Gregoire Lourme](https://www.jamendo.com/en/artist/560/gregoire-lourme)
+
+#License
+Files in directories:
+-images  
+-menus  
+-levels  
+-briefing  
+are licensed under CC BY-NC-ND 4.0  
+https://creativecommons.org/licenses/by-nc-sa/4.0/
