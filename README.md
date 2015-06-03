@@ -10,6 +10,7 @@ Gravity based game written in python using pygame
 
 #Music
 by [Gregoire Lourme](https://www.jamendo.com/en/artist/560/gregoire-lourme)
+http://creativecommons.org/licenses/by-sa/3.0/
 
 #License
 Files in directories:  
