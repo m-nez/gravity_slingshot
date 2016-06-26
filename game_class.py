@@ -22,12 +22,6 @@ from level_tools import *
 import sys
 from channel import Channel
 
-def help():
-    print("""
-self.load_run(path_to_gsl_file) - play levels
-"""
-    )
-
 class Game(Scene):
     def __init__(self):
         self.window = Window()
