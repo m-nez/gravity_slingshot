@@ -75,8 +75,6 @@ class Game(Scene):
         disp.close()
     def add_to_game(self, level):
         loaded_level = load_level(level)
-        if type(loaded_level) != Scene:
-            print(loaded_level)
         loaded_level.game = self
         loaded_level.window = self.window
         return loaded_level
