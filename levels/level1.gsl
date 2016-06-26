@@ -16,10 +16,12 @@ level 1
                 -location=[0.8,0.05]
                 -size=[0.4,0.1]
                 -image_pack="button2"
+				-render_layer=3
         [attraction_background
                 -location=[0.84,0.15]
                 -size=[0.30,0.08]
                 -image_pack="button2"
+				-render_layer=3
 >Slider
         [slider
                 -location=[0.05,0.5]
@@ -33,7 +35,8 @@ level 1
                 -button.vis_obj.image_pack="slider_button"
                 -button.vis_obj.size = [0.1, 0.05]
                 -button.size = [0.1, 0.05]
-                -button.vis_obj.render_layer = 3
+                -button.vis_obj.render_layer = 4
+				-vis_obj.render_layer = 3
 >TextObject
         [timer
                 -location=[0.8,0.05]
@@ -42,6 +45,7 @@ level 1
                 -text="self.scene.time.cached_time"
                 -changing=True
                 -max_chars=8
+				-render_layer = 4
         [attraction
                 -location=[0.84,0.15]
                 -size=[0.25,0.09]
@@ -49,6 +53,7 @@ level 1
                 -text="self.scene.attraction"
                 -max_chars=8
                 -changing=True
+				-render_layer = 4
 >PhysicalObject
         [escape_pod
                 -image_pack="escape_pod"

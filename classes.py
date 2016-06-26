@@ -809,7 +809,6 @@ class Scene:
         exec(self.start_action)
         while self.running:
             self.time.update()
-            self.game.handle_music()
             self.handle_input()
             self.check_sliders()
             self.change_attraction()

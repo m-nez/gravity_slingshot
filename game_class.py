@@ -20,6 +20,7 @@
 
 from level_tools import *
 import sys
+from channel import Channel
 
 def help():
     print("""
@@ -30,7 +31,7 @@ self.load_run(path_to_gsl_file) - play levels
 class Game(Scene):
     def __init__(self):
         self.window = Window()
-        self.channel=pygame.mixer.find_channel()
+        self.channel=Channel("music/loop")
         self.load_display()
         self.images = {}
         self.running = False
@@ -141,24 +142,8 @@ class Game(Scene):
     def play_sound(self, path):
         sound = pygame.mixer.Sound(path)
         sound.play()
-    def queue_song(self,path):
-        sound = pygame.mixer.Sound(path)
-        print("Sound queued:", path)
-        self.channel.queue(sound)
-    def next_song(self):
-        directory = "music/loop"
-        songs = listdir(directory)
-        songs = [song for song in songs if song[0] != '.']
-        songs = proper_sort(songs)
-        if len(songs) != 0:
-            self.current_song = (self.current_song + 1) % len(songs)
-            s=pygame.mixer.Sound(join(directory, songs[self.current_song]))
-            self.channel.queue(s)
-    def handle_music(self):
-        if not self.channel.get_busy():
-            self.next_song()
-
     def run(self):
         self.load_run("menus/logo.gsl")
+        self.channel.start()
         self.load_run("menus/main_menu.gsl")
 
