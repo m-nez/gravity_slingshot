@@ -214,7 +214,9 @@ class TextObject(VisibleObject):
         Fixed object is rendered in fixed screen coordinates(Upper left corner is self.location).
         Its width and height are percentages of screen size set by self.size variable.
         """
-        self.font = pygame.font.Font(join("fonts", listdir("fonts")[0]), 32)
+        fonts = listdir("fonts")
+        fonts.sort()  # listdir returns files in arbitrary order
+        self.font = pygame.font.Font(join("fonts", fonts[0]), 32)
         self.images = []
         self.scaled_images = []
         self.frame = 0
