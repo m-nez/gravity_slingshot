@@ -336,6 +336,9 @@ class Slider():
         self.scene = scene
         self.button.add_to_scene(scene)
         self.vis_obj.add_to_scene(scene)
+        self.update_button_location()
+
+    def update_button_location(self):
         if self.vertical:
             loc = self.location[1]
         else:
@@ -356,6 +359,10 @@ class Slider():
                     self.location[1]
                     ]
 
+    def update_apply(self):
+        self.update_button_location()
+        exec(self.action)
+
     def update(self):
         m_coord = pygame.mouse.get_pos()
         m_coord = (float(m_coord[0]), float(m_coord[1]))
@@ -369,7 +376,6 @@ class Slider():
             sign = 1
         else:
             sign = -1
-        high = loc + (self.length/2*sign)
         low = loc - (self.length/2*sign)
         val = ((-sign * low) + coord * sign) / self.length
         if val > 1:
@@ -378,18 +384,7 @@ class Slider():
             val = 0
         self.value = val
 
-        if self.vertical:
-            self.button.location = [
-                    self.location[0],
-                    low + (sign*val*self.length)
-                    ]
-        else:
-            self.button.location = [
-                    low + (sign*val*self.length),
-                    self.location[1]
-                    ]
-
-        exec(self.action)
+        self.update_apply()
 
 
 class Path(VisibleObject):
@@ -720,7 +715,7 @@ class Scene:
         self.camera[1] += (1/old_scale-1/new_scale)*self.window.size[1]/2
 
     def handle_input(self):
-        pressed_keys =  pygame.key.get_pressed()
+        pressed_keys = pygame.key.get_pressed()
         if pressed_keys[ord("w")]:
             self.move_camera(0,-128*self.time.delta_time/self.scale)
         if pressed_keys[ord("s")]:
@@ -729,6 +724,11 @@ class Scene:
             self.move_camera(-128*self.time.delta_time/self.scale)
         if pressed_keys[ord("d")]:
             self.move_camera(128*self.time.delta_time/self.scale)
+        if any(pressed_keys[ord("1"):ord("9")+1]):
+            v = float(pressed_keys[ord("1"):ord("9")+1].index(1)) / 8.0
+            for slider in self.slider_objects:
+                slider.value = v
+                slider.update_apply()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.end()

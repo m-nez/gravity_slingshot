@@ -67,7 +67,7 @@ Main Menu
 	[credits_button
 		-location=[0.8, 0.5]
 		-size=[0.2, 0.1]
-		-down_action="self.scene.game.load_run('menus/credits.gsl');print(9)"
+		-down_action="self.scene.game.load_run('menus/credits.gsl')"
 
 >TextObject
 	[level_name
