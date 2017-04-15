@@ -1,18 +1,18 @@
-# gravity_slingshot
+# gravity\_slingshot
 Gravity based game written in python using pygame
 
-#Dependencies
+## Dependencies
 -python2  
 -pygame
 
-#Running
-  Just run the The_Game.py script
+## Running
+  Just run the The\_Game.py script
 
-#Music
+## Music
 by [Gregoire Lourme](https://www.jamendo.com/en/artist/560/gregoire-lourme)  
 http://creativecommons.org/licenses/by-sa/3.0/
 
-#License
+## License
 Files in directories:  
 -images  
 -menus  
