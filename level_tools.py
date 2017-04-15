@@ -19,6 +19,7 @@
 """
 
 from classes import *
+import os
 
 def load_level(path):
     """
@@ -74,6 +75,8 @@ def overwrite_save(file_name, name_time_comp):
     save.close()
 
 def fill_save_dir(overwrite=False):
+    if not os.path.exists("saves"):
+        os.mkdir("saves")
     saves = listdir("saves")
     levels = listdir("levels")
     level=levels[0]
