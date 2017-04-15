@@ -1,7 +1,7 @@
-Level 7
+Level 8
 >Scene
 	[level
-		-name="level 7"
+		-name="level 8"
 		-goal_hit_to_win=1
 		-attractor_hit_to_lose=1
 		-scale=0.125
@@ -60,13 +60,13 @@ Level 7
 		-mass=1.0
 		-radius=126
 		-location=[0,0]
-		-velocity=[600, 950]
+		-velocity=[000, 800]
 		-affected_by_gravity=True
 		-path.active = True
 		-path.image_pack="marker_white1"
 		-path.period = 1
 	[goal
-		-location=[3000, 0]
+		-location=[5000, 0]
 		-goal = True
 		-image_pack="wormhole1"
 		-radius=180
@@ -74,8 +74,21 @@ Level 7
 	[attractor1
 		-location=[1500,-1000]
 		-mass=2000
-		-size=[4,4]
-		-radius=510
+		-size=[2,2]
+		-radius=255
 		-attractor=True
 		-image_pack="attractor1"
-
+	[crystal1
+		-location=[2000, 0]
+		-obstacle=True
+		-image_pack="crystal_planet1"
+		-mass=2000000000
+		-radius=510
+		-size=[4,4]
+	[moonlike1
+		-location=[4000, 0]
+		-obstacle=True
+		-image_pack="moonlike1"
+		-mass=2000000000
+		-radius=255
+		-size=[2,2]
