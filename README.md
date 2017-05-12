@@ -2,8 +2,10 @@
 Gravity based game written in python using pygame
 
 ## Dependencies
--python2  
--pygame
+-python  
+-pygame  
+-sdl\_mixer  
+-sdl2  
 
 ## Running
   Just run the The\_Game.py script
