@@ -78,6 +78,13 @@ Level 9
 		-radius=255
 		-attractor=True
 		-image_pack="attractor1"
+	[attractor2
+		-location=[6000,-500]
+		-mass=2000
+		-size=[2,2]
+		-radius=255
+		-attractor=True
+		-image_pack="attractor1"
 	[black_hole1
 		-location=[2000, 0]
 		-obstacle=True
