@@ -724,8 +724,8 @@ class Scene:
             self.move_camera(-128*self.time.delta_time/self.scale)
         if pressed_keys[ord("d")]:
             self.move_camera(128*self.time.delta_time/self.scale)
-        if any(pressed_keys[ord("1"):ord("9")+1]):
-            v = float(pressed_keys[ord("1"):ord("9")+1].index(1)) / 8.0
+        if any(pressed_keys[30:39]):
+            v = float(pressed_keys[30:39+1].index(1)) / 8.0
             for slider in self.slider_objects:
                 slider.value = v
                 slider.update_apply()
