@@ -3,7 +3,7 @@ Briefing 1
         [level
 >TextWall
         [brief
-                -text="Your planet is being consumed\nby a gas giant.\nYou are lucky enough not to be\ncurrently docked.\nMake haste towards the tachyon\n if you don't want to share\nyour planets fate."
+                -text="Your planet is being consumed\nby a gas giant.\nYou are lucky enough not to be\ncurrently docked.\nMake haste towards the tachyon\n if you don't want to share\nyour planet's fate."
                 -size=[1.0,0.08]
                 -dimension_modifier=0.35
                 -location=[0.5,0.1]

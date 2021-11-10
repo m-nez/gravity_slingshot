@@ -226,7 +226,7 @@ class TextObject(VisibleObject):
             self.bound = True
             self.text = binding
         except:
-            bound = False
+            self.bound = False
     def add_to_scene(self, scene, binding = None):
         scene.text_objects.append(self)
         self.scene = scene
