@@ -21,40 +21,66 @@
 from classes import *
 import os
 
+
+def preprocess_gsl(path):
+    """
+    Read file from *path*, preprocess and list of lines
+
+    Returns
+    -------
+    lines : preprocessed gsl string
+    """
+    directory = os.path.dirname(path)
+
+    lines = []
+    with open(path) as f:
+        for l in f:
+            if l.startswith("#include "):
+                lines.extend(
+                    preprocess_gsl(
+                        os.path.join(directory, l[len("#include ") :].strip())
+                    )
+                )
+            else:
+                lines.append(l)
+
+    return lines
+
+
 def load_level(path):
     """
     gravity slingshot level loader
     """
-    gsl_file = open(path)
+    gsl_lines = preprocess_gsl(path)
     current_class = None
     current_object = None
     # List of all scene objects names
     objects = {}
     object_list = []
-    for line in gsl_file:
+    for line in gsl_lines:
         line = line.strip()
         f_char = line[:1]
-        if f_char == '>':
+        if f_char == ">":
             current_class = line[1:]
-        elif f_char == '<':
+        elif f_char == "<":
             current_class = None
-        elif f_char == '[':
+        elif f_char == "[":
             current_object = line[1:]
             if current_class != None:
-                objects[current_object]=eval(current_class+"()")
-                object_list.append(objects[current_object])
-        elif f_char == ']':
+                if current_object not in objects:
+                    objects[current_object] = eval(current_class + "()")
+                    object_list.append(objects[current_object])
+        elif f_char == "]":
             if current_object == None:
-                return  "Error: Unexpected ] No current object"
+                return "Error: Unexpected ] No current object"
             else:
                 current_object = None
         elif f_char == "-":
             if current_object == None:
-                return  "Error: Unexpected - No current object"
+                return "Error: Unexpected - No current object"
             else:
-                exec("objects[\""+current_object+"\"]."+line[1:])
+                exec('objects["' + current_object + '"].' + line[1:])
 
-    gsl_file.close()
     level_found = False
     for obj in object_list:
         # fix for python2
@@ -69,35 +95,45 @@ def load_level(path):
             obj.add_to_scene(level)
     return level
 
+
 def overwrite_save(file_name, name_time_comp):
-    save = open("saves/"+file_name, "w")
-    save.writelines([str(name_time_comp[0])+"\n", str(name_time_comp[1])+"\n", str(name_time_comp[2])])
+    save = open("saves/" + file_name, "w")
+    save.writelines(
+        [
+            str(name_time_comp[0]) + "\n",
+            str(name_time_comp[1]) + "\n",
+            str(name_time_comp[2]),
+        ]
+    )
     save.close()
+
 
 def fill_save_dir(overwrite=False):
     if not os.path.exists("saves"):
         os.mkdir("saves")
     saves = listdir("saves")
     levels = listdir("levels")
-    level=levels[0]
+    level = levels[0]
     for level in levels:
-        if not level[:level.find(".")]+".gss" in saves or overwrite:
-            save = open("saves/"+level[:level.find(".")]+".gss", "w")
-            level = open("levels/"+level)
-            save.writelines([level.readline(),"No Time Yet\n", "False"])
+        if not level[: level.find(".")] + ".gss" in saves or overwrite:
+            save = open("saves/" + level[: level.find(".")] + ".gss", "w")
+            level = open("levels/" + level)
+            save.writelines([level.readline(), "No Time Yet\n", "False"])
             save.close()
             level.close()
 
+
 def load_save(file_name):
-    save = open("saves/"+file_name)
+    save = open("saves/" + file_name)
     name_time_comp = []
     for line in save:
         name_time_comp.append(line.rstrip())
     save.close()
     return name_time_comp
 
+
 def proper_sort(unsorted):
-    tmp_sort = sorted(unsorted, key = len)
+    tmp_sort = sorted(unsorted, key=len)
     max_length = tmp_sort[-1]
     min_length = tmp_sort[0]
     start_point = 0
@@ -115,8 +151,5 @@ def proper_sort(unsorted):
     for i in final_sort:
         i = sorted(i)
         final_merged.extend(i)
-    
+
     return final_merged
-            
-
-
