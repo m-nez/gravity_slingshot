@@ -24,6 +24,7 @@ from os import listdir
 from os.path import isfile, join
 from copy import deepcopy
 
+
 class Window:
     def __init__(self):
         self.size = [800, 600]
@@ -32,7 +33,7 @@ class Window:
         self.refresh_rate = 30
         self.fullscreen = False
         self.modes = pygame.display.list_modes()
-        self.mode_index = -3%len(self.modes)
+        self.mode_index = -3 % len(self.modes)
         self.fps = 30
 
     def set(self):
@@ -42,16 +43,21 @@ class Window:
             flag |= pygame.FULLSCREEN
 
         self.screen = pygame.display.set_mode(self.size, flag)
+
     def set_size(self, new_size):
         self.size = new_size
         self.set()
+
     def set_caption(self, new_caption):
         self.caption = new_caption
         self.set()
+
     def flip(self):
         pygame.display.flip()
-    def clear_screen(self, color = (0,0,0)):
+
+    def clear_screen(self, color=(0, 0, 0)):
         self.screen.fill(color)
+
 
 class Time:
     def __init__(self):
@@ -61,28 +67,35 @@ class Time:
         self.timer_run = False
         self.fps = 30
         self.cached_time = 0.0
+
     def update(self):
         self.previous_time = self.current_time
         self.current_time = time()
         self.delta_time = self.current_time - self.previous_time
         if self.timer_run:
             self.cached_time += self.delta_time
+
     def timer_start(self):
         self.cached_time = 0.0
         self.timer_run = True
+
     def timer_stop(self):
         self.timer_run = False
+
     def timer_resume(self):
         self.timer_run = True
+
     def wait_frame(self, fps=30):
         dt = time() - self.current_time
-        if dt < 1.0/fps:
-            sleep(1.0/fps - dt)
+        if dt < 1.0 / fps:
+            sleep(1.0 / fps - dt)
+
 
 class VisibleObject:
     """
     Drawable Object
     """
+
     def __init__(self):
         self.name = "Name"
         self.location = [0.0, 0.0]
@@ -101,33 +114,40 @@ class VisibleObject:
         self.frame = 0
         self.scale = 1.0
         self.render_layer = 0
+
     def add_to_scene(self, scene):
         scene.visible_objects.append(self)
         self.scene = scene
+
     def draw(self):
         if self.button != None:
             self.location = self.button.location
 
         if self.scaled_images != [] and self.visible:
             if self.fixed:
-                self.scene.window.screen.blit(self.scaled_images[self.frame],
-                        (
-                            self.location[0]*self.scene.window.size[0] - self.scaled_images[self.frame].get_width()/2,
-                            self.location[1]*self.scene.window.size[1] - self.scaled_images[self.frame].get_height()/2
-                            )
-                        )
+                self.scene.window.screen.blit(
+                    self.scaled_images[self.frame],
+                    (
+                        self.location[0] * self.scene.window.size[0]
+                        - self.scaled_images[self.frame].get_width() / 2,
+                        self.location[1] * self.scene.window.size[1]
+                        - self.scaled_images[self.frame].get_height() / 2,
+                    ),
+                )
             else:
-                self.scene.window.screen.blit(self.scaled_images[self.frame], 
-                        (
-                            (self.scale * (self.location[0] - self.scene.camera[0])) - self.scaled_images[self.frame].get_width()/2,
-                            (self.scale * (self.location[1] - self.scene.camera[1])) - self.scaled_images[self.frame].get_height()/2
-                            )
-                        )
+                self.scene.window.screen.blit(
+                    self.scaled_images[self.frame],
+                    (
+                        (self.scale * (self.location[0] - self.scene.camera[0]))
+                        - self.scaled_images[self.frame].get_width() / 2,
+                        (self.scale * (self.location[1] - self.scene.camera[1]))
+                        - self.scaled_images[self.frame].get_height() / 2,
+                    ),
+                )
+
     def frame_next(self):
         if self.scaled_images != []:
             self.frame = (self.frame + 1) % len(self.images)
-
-
 
     def scale_images2(self):
         self.scaled_images = []
@@ -136,59 +156,71 @@ class VisibleObject:
                 self.scaled_images.append(
                     pygame.Surface(
                         (
-                        int(self.size[0] * self.scene.window.size[0]),
-                        int(self.size[1] * self.scene.window.size[1])
-                        ), img)
+                            int(self.size[0] * self.scene.window.size[0]),
+                            int(self.size[1] * self.scene.window.size[1]),
+                        ),
+                        img,
                     )
+                )
 
         else:
             for img in self.images:
                 self.scaled_images.append(
                     pygame.Surface(
                         (
-                        int(img.get_width()*self.scale*self.size[0]),
-                        int(img.get_height()*self.scale*self.size[1])
-                        ), img)
+                            int(img.get_width() * self.scale * self.size[0]),
+                            int(img.get_height() * self.scale * self.size[1]),
+                        ),
+                        img,
                     )
-
-
+                )
 
     def scale_images(self):
         self.scaled_images = []
         if self.fixed:
             for img in self.images:
                 self.scaled_images.append(
-                    pygame.transform.scale(img, (
-                        int(self.size[0] * self.scene.window.size[0]),
-                        int(self.size[1] * self.scene.window.size[1])
-                        )
-                        )
+                    pygame.transform.scale(
+                        img,
+                        (
+                            int(self.size[0] * self.scene.window.size[0]),
+                            int(self.size[1] * self.scene.window.size[1]),
+                        ),
                     )
+                )
 
         else:
             for img in self.images:
                 self.scaled_images.append(
-                    pygame.transform.scale(img, (
-                        int(img.get_width()*self.scale*self.size[0]),
-                        int(img.get_height()*self.scale*self.size[1])
-                        )
-                        )
+                    pygame.transform.scale(
+                        img,
+                        (
+                            int(img.get_width() * self.scale * self.size[0]),
+                            int(img.get_height() * self.scale * self.size[1]),
+                        ),
                     )
+                )
+
     def set_images(self, images):
         self.images = images
         self.scale_images()
+
     def auto_set_images(self):
         if self.image_pack != None:
             self.set_images(self.scene.images[self.image_pack])
+
     def set_scale(self, new_scale):
         self.scale = new_scale
         self.scale_images()
+
     def set_size(self, new_size):
         self.size = new_size
         self.scale_images()
+
     def bind_camera(self):
-        self.scene.camera_bound=True
+        self.scene.camera_bound = True
         self.scene.camera_object = self
+
 
 class TextObject(VisibleObject):
     def __init__(self):
@@ -196,7 +228,7 @@ class TextObject(VisibleObject):
         self.location = [0.0, 0.0]
         self.size = [1.0, 1.0]
         self.text = "Text"
-        self.color = [255,255,255,255]
+        self.color = [255, 255, 255, 255]
         self.visible = True
         self.fixed = True
         self.changing = False
@@ -205,8 +237,8 @@ class TextObject(VisibleObject):
         self.scene = None
         self.button = None
         self.stretch = True
-        #True = size[0]; False = size[1]
-        #Used for unstretched text
+        # True = size[0]; False = size[1]
+        # Used for unstretched text
         self.use_width = False
         self.dimension_modifier = 1
 
@@ -220,6 +252,7 @@ class TextObject(VisibleObject):
         self.frame = 0
         self.scale = 1.0
         self.render_layer = 2
+
     def bind(self, binding):
         try:
             eval(binding)
@@ -227,48 +260,62 @@ class TextObject(VisibleObject):
             self.text = binding
         except:
             self.bound = False
-    def add_to_scene(self, scene, binding = None):
+
+    def add_to_scene(self, scene, binding=None):
         scene.text_objects.append(self)
         self.scene = scene
         if binding != None:
             self.bind(binding)
+
     def generate_image(self):
         if self.bound:
-            self.images = [self.font.render(str(eval(self.text))[:self.max_chars], False, self.color)]
+            self.images = [
+                self.font.render(
+                    str(eval(self.text))[: self.max_chars], False, self.color
+                )
+            ]
         else:
-            self.images = [self.font.render(str(self.text)[:self.max_chars], False, self.color)]
+            self.images = [
+                self.font.render(str(self.text)[: self.max_chars], False, self.color)
+            ]
         if not self.stretch:
-            w_to_h = self.images[0].get_width()/self.images[0].get_height()
+            w_to_h = self.images[0].get_width() / self.images[0].get_height()
             if self.use_width:
-                self.size[1]=self.size[0]/w_to_h*self.dimension_modifier
+                self.size[1] = self.size[0] / w_to_h * self.dimension_modifier
             else:
-                self.size[0]=self.size[1]*w_to_h*self.dimension_modifier
+                self.size[0] = self.size[1] * w_to_h * self.dimension_modifier
         self.scale_images()
+
     def auto_set_images(self):
         self.generate_image()
+
     def set_text(self, new_text):
         self.text = new_text
         self.bound = False
+
     def draw(self):
         if self.scaled_images == [] or self.changing:
             self.generate_image()
         VisibleObject.draw(self)
 
+
 class TextWall:
     """
     Text block
     """
+
     def __init__(self):
-        self.size=[1.0,0.1]
-        #location of first line
-        self.location =[0,0]
+        self.size = [1.0, 0.1]
+        # location of first line
+        self.location = [0, 0]
         self.text = ""
-        self.color=[255,255,255,255]
-        self.stretch=False
+        self.color = [255, 255, 255, 255]
+        self.stretch = False
         self.lines = []
         self.dimension_modifier = 1.0
-    def add_to_scene(self,scene):
-        texts=self.text.split('\n')
+
+    def add_to_scene(self, scene):
+        texts = self.text.split("\n")
         for i, text in enumerate(texts):
             line = TextObject()
             self.lines.append(line)
@@ -276,13 +323,12 @@ class TextWall:
             line.stretch = self.stretch
             line.text = text
             line.max_chars = len(text)
-            line.location = [
-                    self.location[0],
-                    self.location[1]+self.size[1]*i
-                    ]
-            line.size=self.size
-            line.color=self.color
+            line.location = [self.location[0], self.location[1] + self.size[1] * i]
+            line.size = self.size
+            line.color = self.color
             line.dimension_modifier = self.dimension_modifier
+
+
 class Button(VisibleObject):
     def __init__(self):
         self.name = "Name"
@@ -295,27 +341,43 @@ class Button(VisibleObject):
         self.vis_obj.button = self
         self.clicked = False
         self.slider = None
+
     def add_to_scene(self, scene):
         scene.button_objects.append(self)
         self.scene = scene
         if self.vis_obj.image_pack != None:
             self.vis_obj.add_to_scene(scene)
+
     def play_action(self, action):
         exec(action)
+
     def mouse_over(self, pos):
-        if (self.location[0]-self.size[0]/2)*self.scene.window.size[0] < pos[0] and (self.location[0]+self.size[0]/2)*self.scene.window.size[0] > pos[0]:
-            if (self.location[1]-self.size[1]/2)*self.scene.window.size[1] < pos[1] and (self.location[1]+self.size[1]/2)*self.scene.window.size[1] > pos[1]:
+        if (self.location[0] - self.size[0] / 2) * self.scene.window.size[0] < pos[
+            0
+        ] and (self.location[0] + self.size[0] / 2) * self.scene.window.size[0] > pos[
+            0
+        ]:
+            if (self.location[1] - self.size[1] / 2) * self.scene.window.size[1] < pos[
+                1
+            ] and (self.location[1] + self.size[1] / 2) * self.scene.window.size[
+                1
+            ] > pos[
+                1
+            ]:
                 return True
         return False
+
     def draw(self):
         if self.vis_obj.image_pack != None:
             self.vis_obj.draw()
 
-class Slider():
+
+class Slider:
     """
     Slider object can be manipulated using mouse.
     It has a value (1.0 - 0.0) corresponding with its button location.
     """
+
     def __init__(self):
         self.button = Button()
         self.button.slider = self
@@ -326,12 +388,13 @@ class Slider():
         self.scene = None
         self.vertical = True
         self.inverse = False
-        self.location = [0.0,0.0]
+        self.location = [0.0, 0.0]
         self.length = 0.5
         self.active = False
         self.value = 0.0
         self.action = "None"
-    def add_to_scene(self,scene):
+
+    def add_to_scene(self, scene):
         scene.slider_objects.append(self)
         self.scene = scene
         self.button.add_to_scene(scene)
@@ -347,17 +410,17 @@ class Slider():
             sign = 1
         else:
             sign = -1
-        low = loc - (self.length/2.0*sign)
+        low = loc - (self.length / 2.0 * sign)
         if self.vertical:
             self.button.location = [
-                    self.location[0],
-                    low + (sign*self.value*self.length)
-                    ]
+                self.location[0],
+                low + (sign * self.value * self.length),
+            ]
         else:
             self.button.location = [
-                    low + (sign*self.value*self.length),
-                    self.location[1]
-                    ]
+                low + (sign * self.value * self.length),
+                self.location[1],
+            ]
 
     def update_apply(self):
         self.update_button_location()
@@ -376,7 +439,7 @@ class Slider():
             sign = 1
         else:
             sign = -1
-        low = loc - (self.length/2*sign)
+        low = loc - (self.length / 2 * sign)
         val = ((-sign * low) + coord * sign) / self.length
         if val > 1:
             val = 1
@@ -391,6 +454,7 @@ class Path(VisibleObject):
     """
     Representation of object's trajectory
     """
+
     def __init__(self, obj):
         self.name = "Path"
         self.obj = obj
@@ -409,32 +473,40 @@ class Path(VisibleObject):
         self.scene = obj.scene
         self.image_pack = None
         self.render_layer = 1
+
     def add_coord(self, coord):
         if self.active:
             self.coordinates.append(deepcopy(coord))
+
     def wait_time_update(self, dt):
         if self.active:
             self.wait_time += dt
             if self.wait_time > self.period:
                 self.add_coord(self.obj.location)
                 self.wait_time = 0.0
+
     def clear_coords(self):
         self.coordinates = []
+
     def draw(self):
         if self.scaled_images != [] and self.visible:
             for coord in self.coordinates:
-                self.scene.window.screen.blit(self.scaled_images[self.frame], 
-                        (
-                            (self.scale * (coord[0] - self.scene.camera[0])) - self.scaled_images[self.frame].get_width()/2,
-                            (self.scale * (coord[1] - self.scene.camera[1])) - self.scaled_images[self.frame].get_height()/2
-                            )
-                        )
+                self.scene.window.screen.blit(
+                    self.scaled_images[self.frame],
+                    (
+                        (self.scale * (coord[0] - self.scene.camera[0]))
+                        - self.scaled_images[self.frame].get_width() / 2,
+                        (self.scale * (coord[1] - self.scene.camera[1]))
+                        - self.scaled_images[self.frame].get_height() / 2,
+                    ),
+                )
+
 
 class PhysicalObject(VisibleObject):
     """
     Interactive Object
     """
-    
+
     def __init__(self):
         self.name = "Physical Object"
         self.location = [0.0, 0.0]
@@ -459,14 +531,17 @@ class PhysicalObject(VisibleObject):
         self.affected_by_gravity = False
         self.goal = False
         self.render_layer = 2
+
     def add_to_scene(self, scene):
         scene.physical_objects.append(self)
         scene.visible_objects.append(self.path)
         self.scene = scene
         self.path.scene = scene
+
     def update_path(self):
         self.path.add_coord(self.location)
-    def accelerate(self, force = [0.0, 0.0], delta_time = 0.0):
+
+    def accelerate(self, force=[0.0, 0.0], delta_time=0.0):
         """
         accelerate([force_x, force_y], delta_time)
         """
@@ -483,14 +558,11 @@ class PhysicalObject(VisibleObject):
         Returns distance to object and normalized vector.
         [distance, [x, y]]
         """
-        vect = [
-                obj.location[0] - self.location[0],
-                obj.location[1] - self.location[1]
-                ]
-        distance = (vect[0]**2 + vect[1]**2)**0.5
-        
+        vect = [obj.location[0] - self.location[0], obj.location[1] - self.location[1]]
+        distance = (vect[0] ** 2 + vect[1] ** 2) ** 0.5
+
         if distance != 0.0:
-            return [distance, [vect[0]/distance, vect[1]/distance]]
+            return [distance, [vect[0] / distance, vect[1] / distance]]
         else:
             return [0.0, [0.0, 0.0]]
 
@@ -502,17 +574,23 @@ class PhysicalObject(VisibleObject):
             return True
         else:
             return False
+
     def elastic_collision(self, physobj):
         """
         Don't use! Illogical!
         """
         vect = self.get_vect_to(physobj)
-        vel1 = (self.velocity[0]**2+self.velocity[1]**2)**0.5
-        vel2 = (physobj.velocity[0]**2+physobj.velocity[1]**2)**0.5
-        v1 = ((self.mass - physobj.mass) * vel1 + 2 * physobj.mass * vel2) / (self.mass + physobj.mass)
-        v2 = ((physobj.mass - self.mass) * vel1 + 2 * self.mass * vel2) / (self.mass + physobj.mass)
-        self.velocity=[-vect[1][0]*v1, -vect[1][1]*v2]
-        physobj.velocity = [vect[1][0]*v2,vect[1][1]*v2]
+        vel1 = (self.velocity[0] ** 2 + self.velocity[1] ** 2) ** 0.5
+        vel2 = (physobj.velocity[0] ** 2 + physobj.velocity[1] ** 2) ** 0.5
+        v1 = ((self.mass - physobj.mass) * vel1 + 2 * physobj.mass * vel2) / (
+            self.mass + physobj.mass
+        )
+        v2 = ((physobj.mass - self.mass) * vel1 + 2 * self.mass * vel2) / (
+            self.mass + physobj.mass
+        )
+        self.velocity = [-vect[1][0] * v1, -vect[1][1] * v2]
+        physobj.velocity = [vect[1][0] * v2, vect[1][1] * v2]
+
     def apply_gravity(self, physobjs, delta_time):
         """
         Calculates gravitational force and applies it as acceleration.
@@ -522,10 +600,11 @@ class PhysicalObject(VisibleObject):
         for obj in physobjs:
             vect = self.get_vect_to(obj)
             if vect[0] != 0.0:
-                x += obj.mass * obj.attraction * vect[1][0] / vect[0]**2
-                y += obj.mass * obj.attraction * vect[1][1] / vect[0]**2
+                x += obj.mass * obj.attraction * vect[1][0] / vect[0] ** 2
+                y += obj.mass * obj.attraction * vect[1][1] / vect[0] ** 2
 
-        self.accelerate([x,y], delta_time)
+        self.accelerate([x, y], delta_time)
+
 
 class Scene:
     def __init__(self):
@@ -541,7 +620,7 @@ class Scene:
         self.window = None
         self.time = Time()
         self.scale = 1.0
-        self.camera = [0,0]
+        self.camera = [0, 0]
         self.camera_bound = False
         self.camera_object_index = 0
         self.attraction = 1.0
@@ -556,40 +635,54 @@ class Scene:
         self.obstacle_hit = 0
         self.attractor_hit_to_lose = 1
         self.goal_hit_to_win = 1
-        self.obstacle_hit_to_lose =1
+        self.obstacle_hit_to_lose = 1
         self.clear_buffer = True
-        self.render_layers = [[],[],[],[],[],[],[],[],[],[]]
-        self.start_action="None"
+        self.render_layers = [[], [], [], [], [], [], [], [], [], []]
+        self.start_action = "None"
+
     def assign_to_render_layers(self):
-        self.render_layers =[[],[],[],[],[],[],[],[],[],[]]
-        for obj in self.physical_objects+self.visible_objects+self.text_objects:
+        self.render_layers = [[], [], [], [], [], [], [], [], [], []]
+        for obj in self.physical_objects + self.visible_objects + self.text_objects:
             self.render_layers[obj.render_layer].append(obj)
+
     def update_camera(self):
         if self.camera_bound:
-            self.camera = deepcopy(self.physical_objects[self.camera_object_index % len(self.physical_objects)].location)
-            self.camera[0] -= self.window.size[0]/2/self.scale
-            self.camera[1] -= self.window.size[1]/2/self.scale
+            self.camera = deepcopy(
+                self.physical_objects[
+                    self.camera_object_index % len(self.physical_objects)
+                ].location
+            )
+            self.camera[0] -= self.window.size[0] / 2 / self.scale
+            self.camera[1] -= self.window.size[1] / 2 / self.scale
 
     def move_camera(self, x=0, y=0):
         if not self.camera_bound:
-            self.camera[0]+=x
-            self.camera[1]+=y
+            self.camera[0] += x
+            self.camera[1] += y
+
     def end(self):
         self.running = False
+
     def win(self):
         if self.goal_hit >= self.goal_hit_to_win:
             return True
         else:
             return False
+
     def loss(self):
         time = False
         if self.time_limit != None:
             if self.time.cached_time > self.time_limit:
                 time = True
-        if time or self.attractor_hit >= self.attractor_hit_to_lose or self.obstacle_hit >= self.obstacle_hit_to_lose:
+        if (
+            time
+            or self.attractor_hit >= self.attractor_hit_to_lose
+            or self.obstacle_hit >= self.obstacle_hit_to_lose
+        ):
             return True
         else:
             return False
+
     def rate(self):
         rating = 3
         if self.time.cached_time < self.time_goals[0]:
@@ -599,6 +692,7 @@ class Scene:
         elif self.time.cached_time < self.time_goals[2]:
             rating = 2
         return rating
+
     def outcome(self):
         """
         0 - None
@@ -612,44 +706,51 @@ class Scene:
             return [1, self.time.cached_time, self.rate()]
         else:
             return [0, self.time.cached_time, 3]
+
     def check_end(self):
         if self.loss() or self.win():
             self.end()
+
     def mouse_set(self, pos):
-        pos = pos[0]*self.window.size[0], pos[1]*self.window.size[1]
+        pos = pos[0] * self.window.size[0], pos[1] * self.window.size[1]
         pygame.mouse.set_pos(pos)
+
     def add_image_dir(self, directory):
         """
         add_image_dir(image_folder)
         """
-        name = directory[directory.rfind("/") + 1:]
+        name = directory[directory.rfind("/") + 1 :]
         for file in listdir(directory):
             if file[0] != ".":
-                if isfile(directory+"/"+file):
+                if isfile(directory + "/" + file):
                     if not name in self.images:
                         self.images[name] = []
-                    self.images[name].append(pygame.image.load(directory+"/"+file))
+                    self.images[name].append(pygame.image.load(directory + "/" + file))
                 else:
-                    self.add_image_dir(directory+"/"+file)
+                    self.add_image_dir(directory + "/" + file)
+
     def generate_text(self):
         for obj in self.text_objects:
             obj.generate_image()
-    def draw(self, clear = True):
+
+    def draw(self, clear=True):
         Dt = DebugTimer()
         if clear:
             self.window.clear_screen()
-        #Dt.start()
+        # Dt.start()
         for layer in self.render_layers:
             for obj in layer:
                 obj.draw()
-                #Dt.spst([obj, obj.name])
+                # Dt.spst([obj, obj.name])
 
         self.window.flip()
+
     def set_scale(self, new_scale):
         self.scale = new_scale
         for obj in self.visible_objects + self.physical_objects + self.text_objects:
             if obj.fixed == False:
                 obj.set_scale(self.scale)
+
     def apply_gravity(self):
         """
         Applies gravity to all objects affected_by_gravity.
@@ -657,48 +758,60 @@ class Scene:
         for i in range(len(self.physical_objects)):
             if self.physical_objects[i].affected_by_gravity:
                 self.physical_objects[i].apply_gravity(
-                        self.physical_objects[:i] + self.physical_objects[i + 1:],
-                        self.time.delta_time
-                        )
+                    self.physical_objects[:i] + self.physical_objects[i + 1 :],
+                    self.time.delta_time,
+                )
+
     def apply_velocity(self):
         for obj in self.physical_objects:
             obj.apply_velocity(self.time.delta_time)
+
     def path_wait_time_update(self):
         for obj in self.physical_objects:
             if obj.path.active:
                 obj.path.wait_time_update(self.time.delta_time)
+
     def get_object_named(self, name):
         all_objs = self.visible_objects + self.physical_objects + self.text_objects
         for obj in all_objs:
             if obj.name == name:
                 return obj
+
     def animate(self):
         self.animation_wait_time += self.time.delta_time
         if self.animation_period < self.animation_wait_time:
             self.animation_wait_time = 0.0
             for obj in self.physical_objects + self.visible_objects:
                 obj.frame_next()
+
     def button_down_action(self, mouse_pos):
         for obj in self.button_objects:
             if obj.mouse_over(mouse_pos):
                 obj.play_action(obj.down_action)
                 obj.clicked = True
-    def button_up_action(self, mouse_pos=(0,0)):
+
+    def button_up_action(self, mouse_pos=(0, 0)):
         for obj in self.button_objects:
             if obj.clicked:
                 obj.play_action(obj.up_action)
                 obj.clicked = False
+
     def bind_camera(self):
         if self.physical_objects != []:
             self.camera_bound = True
+
     def toggle_camera(self):
         if self.camera_bound:
             self.camera_bound = False
         else:
             self.bind_camera()
+
     def change_camera_object(self, amount):
         if self.physical_objects != []:
-            self.camera_object_index = (self.camera_object_index + amount) % len(self.physical_objects)
+            self.camera_object_index = (self.camera_object_index + amount) % len(
+                self.physical_objects
+            )
+
     def change_scale(self, amount, mode="a"):
         old_scale = self.scale
         new_scale = self.scale
@@ -711,21 +824,32 @@ class Scene:
         elif new_scale > 1.0:
             new_scale = 1.0
         self.set_scale(new_scale)
-        self.camera[0] += (1/old_scale-1/new_scale)*self.window.size[0]/2
-        self.camera[1] += (1/old_scale-1/new_scale)*self.window.size[1]/2
+        self.camera[0] += (1 / old_scale - 1 / new_scale) * self.window.size[0] / 2
+        self.camera[1] += (1 / old_scale - 1 / new_scale) * self.window.size[1] / 2
 
     def handle_input(self):
         pressed_keys = pygame.key.get_pressed()
-        if pressed_keys[ord("w")]:
-            self.move_camera(0,-128*self.time.delta_time/self.scale)
-        if pressed_keys[ord("s")]:
-            self.move_camera(0,128*self.time.delta_time/self.scale)
-        if pressed_keys[ord("a")]:
-            self.move_camera(-128*self.time.delta_time/self.scale)
-        if pressed_keys[ord("d")]:
-            self.move_camera(128*self.time.delta_time/self.scale)
-        if any(pressed_keys[30:39]):
-            v = float(pressed_keys[30:39+1].index(1)) / 8.0
+        pressed_number_keys_1_to_9 = [
+            pressed_keys[pygame.K_1],
+            pressed_keys[pygame.K_2],
+            pressed_keys[pygame.K_3],
+            pressed_keys[pygame.K_4],
+            pressed_keys[pygame.K_5],
+            pressed_keys[pygame.K_6],
+            pressed_keys[pygame.K_7],
+            pressed_keys[pygame.K_8],
+            pressed_keys[pygame.K_9],
+        ]
+        if pressed_keys[pygame.K_w]:
+            self.move_camera(0, -128 * self.time.delta_time / self.scale)
+        if pressed_keys[pygame.K_s]:
+            self.move_camera(0, 128 * self.time.delta_time / self.scale)
+        if pressed_keys[pygame.K_a]:
+            self.move_camera(-128 * self.time.delta_time / self.scale)
+        if pressed_keys[pygame.K_d]:
+            self.move_camera(128 * self.time.delta_time / self.scale)
+        if any(pressed_number_keys_1_to_9):
+            v = float(pressed_number_keys_1_to_9.index(1)) / 8.0
             for slider in self.slider_objects:
                 slider.value = v
                 slider.update_apply()
@@ -757,12 +881,13 @@ class Scene:
         for slider in self.slider_objects:
             if slider.active:
                 slider.update()
+
     def resolve_collisions(self):
         loop_end_index = len(self.physical_objects)
         objects_to_remove = []
-        for i in range(loop_end_index-1):
+        for i in range(loop_end_index - 1):
             obj1 = self.physical_objects[i]
-            for j in range(i+1, loop_end_index):
+            for j in range(i + 1, loop_end_index):
                 obj2 = self.physical_objects[j]
                 if obj1.collides_sphere(obj2):
                     if obj1.projectile:
@@ -791,13 +916,16 @@ class Scene:
                         layer.remove(obj)
             except:
                 pass
+
     def change_attraction(self):
         for obj in self.physical_objects:
             if obj.attractor:
                 obj.attraction = self.attraction
+
     def auto_set_images(self):
         for obj in self.visible_objects + self.physical_objects + self.text_objects:
             obj.auto_set_images()
+
     def run(self):
         self.running = True
         self.images = self.game.images
@@ -823,6 +951,7 @@ class Scene:
 
         return self.outcome()
 
+
 class DebugTimer:
     def __init__(self):
         self.bt = 0.0
@@ -833,28 +962,35 @@ class DebugTimer:
         for i in range(self.base_size):
             self.base.append(0.0)
         self.num_samples = 0
+
     def start(self):
         self.bt = time()
         self.running = False
+
     def stop(self, mess):
         self.at = time()
         print(mess, self.at - self.bt)
+
     def spst(self, mess):
         self.at = time()
         print(mess, self.at - self.bt)
         self.bt = time()
+
     def spst_to_base(self, num):
         self.at = time()
         self.base[num] += self.at - self.bt
         self.bt = time()
+
     def sample_add(self):
         self.num_samples += 1
+
     def print_base(self):
         for i in range(self.base_size):
-            print(i, self.base[i]/self.num_samples)
+            print(i, self.base[i] / self.num_samples)
+
     def sum_avg_base(self):
         s = 0.0
         for i in range(self.base_size):
             s += self.base[i]
-        s/=self.num_samples
+        s /= self.num_samples
         return s

@@ -2,13 +2,13 @@
 Gravity based game written in python using pygame
 
 ## Dependencies
--python  
--pygame  
--sdl\_mixer  
--sdl2  
+Install requirements:
+```
+python -m pip install -r requirements.txt
+```
 
 ## Running
-  Just run the The\_Game.py script
+Just run the The\_Game.py script
 
 ## Music
 by [Gregoire Lourme](https://www.jamendo.com/en/artist/560/gregoire-lourme)  
