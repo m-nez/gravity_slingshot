@@ -114,6 +114,7 @@ class VisibleObject:
         self.frame = 0
         self.scale = 1.0
         self.render_layer = 0
+        self.apply_scale = False
 
     def add_to_scene(self, scene):
         scene.visible_objects.append(self)
@@ -868,6 +869,10 @@ class Scene:
                 if event.button == 1:
                     self.button_up_action(pygame.mouse.get_pos())
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_0:
+                    for slider in self.slider_objects:
+                        slider.value = 0.0
+                        slider.update_apply()
                 if event.key == pygame.K_ESCAPE:
                     self.end()
                 if event.key == pygame.K_q:

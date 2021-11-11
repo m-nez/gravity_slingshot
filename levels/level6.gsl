@@ -4,13 +4,9 @@ Level 6
 		-name="level 5"
 		-goal_hit_to_win=1
 		-attractor_hit_to_lose=1
-		-scale=0.125
+		-scale=0.1
 		-start_action="self.mouse_set([0.05,0.9])"
 >VisibleObject
-        [background
-                -name="background"
-                -image_pack="background1"
-                -location=[0.5, 0.5]
         [timer_background
                 -location=[0.8,0.05]
                 -size=[0.4,0.1]
