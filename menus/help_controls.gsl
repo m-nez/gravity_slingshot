@@ -14,8 +14,9 @@ Help
 		-size=[0.5,0.07]
 		-dimension_modifier=0.35
 		-color=[0,150,0]
-		-text="1-9 - move slider\nscroll up - zoom in\nscroll down - zoom out\nC - lock/unlock camera\nQ - previos camera target\nE - next camera target\nWSAD - move camera\nESC - quit"
+		-text="1-9 - move slider\n0 - move slider to 0\nscroll up - zoom in\nscroll down - zoom out\nC - lock/unlock camera\nQ - previos camera target\nE - next camera target\nWSAD - move camera\nESC - quit"
 >Button
 	[quit_screen_button
 		-location=[0.5, 0.5]
 		-down_action="self.scene.end()" 
+		-shortcuts={pygame.K_RETURN, pygame.K_SPACE}

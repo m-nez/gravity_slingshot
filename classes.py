@@ -342,6 +342,7 @@ class Button(VisibleObject):
         self.vis_obj.button = self
         self.clicked = False
         self.slider = None
+        self.shortcuts = {} # set of pygame keycodes e.g. pygame.K_1
 
     def add_to_scene(self, scene):
         scene.button_objects.append(self)
@@ -860,7 +861,6 @@ class Scene:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     self.button_down_action(pygame.mouse.get_pos())
-
                 if event.button == 4:
                     self.change_scale(0.05)
                 if event.button == 5:
@@ -881,6 +881,15 @@ class Scene:
                     self.change_camera_object(1)
                 if event.key == pygame.K_c:
                     self.toggle_camera()
+                self.handle_button_down_shortcuts(event.key)
+
+    def handle_button_down_shortcuts(self, key):
+        """
+        key : pygame keycode e.g. pygame.K_1
+        """
+        for button in self.button_objects:
+            if key in button.shortcuts:
+                button.play_action(button.down_action)
 
     def check_sliders(self):
         for slider in self.slider_objects:
@@ -952,8 +961,10 @@ class Scene:
             self.check_end()
             self.update_camera()
             self.animate()
-            self.draw(self.clear_buffer)
-            self.time.wait_frame(self.window.fps)
+            # Skip drawing and waiting if the scene is supposed to end
+            if self.running:
+                self.draw(self.clear_buffer)
+                self.time.wait_frame(self.window.fps)
 
         return self.outcome()
 

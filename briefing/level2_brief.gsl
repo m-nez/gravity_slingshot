@@ -13,3 +13,4 @@ Briefing 2
                 -location=[0.5,0.5]
                 -size=[1.0,1.0]
                 -down_action="self.scene.end()"
+		-shortcuts={pygame.K_RETURN, pygame.K_SPACE}

@@ -44,30 +44,37 @@ Main Menu
 		-location=[0.5, 0.5]
 		-size=[0.3, 0.1]
 		-down_action="self.scene.game.play_level()"
+		-shortcuts={pygame.K_p, pygame.K_RETURN}
 	[quit_button
 		-location=[0.5, 0.8]
 		-size=[0.3, 0.1]
 		-down_action="self.scene.end()"
+		-shortcuts={pygame.K_q}
 	[previous_level_button
 		-location=[0.1, 0.1]
 		-size=[0.1, 0.1]
 		-down_action="self.scene.game.change_level(-1)"
+		-shortcuts={pygame.K_LEFT}
 	[next_level_button
 		-location=[0.25, 0.1]
 		-size=[0.1, 0.1]
 		-down_action="self.scene.game.change_level(1)"
+		-shortcuts={pygame.K_RIGHT}
 	[options_button
 		-location=[0.75,0.65]
 		-size=[0.1,0.1]
 		-down_action="self.scene.game.load_run('menus/options.gsl')"
+		-shortcuts={pygame.K_o}
 	[help_button
 		-location=[0.5, 0.65]
 		-size=[0.3, 0.1]
 		-down_action="self.scene.game.load_run('menus/help.gsl')"
+		-shortcuts={pygame.K_h}
 	[credits_button
 		-location=[0.8, 0.5]
 		-size=[0.2, 0.1]
 		-down_action="self.scene.game.load_run('menus/credits.gsl')"
+		-shortcuts={pygame.K_c}
 
 >TextObject
 	[level_name
@@ -92,19 +99,19 @@ Main Menu
 	[quit_text
 		-location=[0.5, 0.81]
 		-size=[0.25, 0.1]
-		-text="QUIT"
+		-text="[Q]UIT"
 	[play_text
 		-location=[0.5, 0.51]
 		-size=[0.25, 0.1]
-		-text="PLAY"
+		-text="[P]LAY"
 	[help_text
 		-location=[0.5, 0.66]
 		-size=[0.25, 0.1]
-		-text="HELP"
+		-text="[H]ELP"
 	[credits_text
 		-location=[0.8, 0.5]
 		-size=[0.17, 0.1]
-		-text="CREDITS"
+		-text="[C]REDITS"
 	[credits
 		-location=[0.7,0.95]
 		-size=[0.45, 0.05]

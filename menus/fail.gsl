@@ -10,8 +10,18 @@ Fail
 		-size=[0.8,0.3]
 		-text="Mission: Failed"
 		-max_chars = 16
+	[retry_level
+		-location=[0.5, 0.7]
+		-size=[0.6,0.1]
+		-text="Menu [ESC] / Retry level [ENTER]"
+		-max_chars = 32
 >Button
 	[quit_screen_button
-		-location=[0.5, 0.5]
-                -size=[1.0, 1.0]
+		-location=[0.25, 0.5]
+                -size=[0.5, 1.0]
 		-down_action="self.scene.end()"
+	[next_level_button
+		-location=[0.75, 0.5]
+                -size=[0.5, 1.0]
+		-down_action="self.scene.end();self.scene.game.play_level()"
+		-shortcuts={pygame.K_RETURN, pygame.K_SPACE}

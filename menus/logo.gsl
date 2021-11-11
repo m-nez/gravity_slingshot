@@ -22,3 +22,4 @@
                 -down_action="self.scene.end()"
                 -location=[0.5,0.5]
                 -size=[1.0,1.0]
+                -shortcuts={pygame.K_RETURN, pygame.K_SPACE}

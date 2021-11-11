@@ -37,3 +37,4 @@ Help
 	[quit_screen_button
 		-location=[0.5, 0.5]
 		-down_action="self.scene.end();self.scene.game.load_run('menus/help_controls.gsl')" 
+		-shortcuts={pygame.K_RETURN, pygame.K_SPACE}
