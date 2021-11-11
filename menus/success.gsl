@@ -19,7 +19,7 @@ Success
 	[quit_screen_button
 		-location=[0.25, 0.5]
                 -size=[0.5, 1.0]
-		-down_action="self.scene.end()"
+		-down_action="self.scene.end();self.scene.game.generate_all_texts()"
 	[next_level_button
 		-location=[0.75, 0.5]
                 -size=[0.5, 1.0]

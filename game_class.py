@@ -89,9 +89,11 @@ class Game(Scene):
     def change_level(self, amount):
         self.level_index = (self.level_index+amount)%len(self.levels)
         self.level_info = load_save(self.saves[self.level_index])
+        self.generate_all_texts()
+        self.redraw_all_scenes()
+    def generate_all_texts(self):
         for scene in self.current_scenes:
             scene.generate_text()
-        self.redraw_all_scenes()
     def play_level(self):
         level_name = self.saves[self.level_index][:self.saves[self.level_index].find(".")]
         if level_name+"_brief.gsl" in listdir("briefing"):

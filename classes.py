@@ -28,7 +28,7 @@ from copy import deepcopy
 class Window:
     def __init__(self):
         self.size = [800, 600]
-        self.caption = "Window"
+        self.caption = "Gravity Slingshot"
         self.screen = None
         self.refresh_rate = 30
         self.fullscreen = False
