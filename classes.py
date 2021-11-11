@@ -26,9 +26,10 @@ from copy import deepcopy
 
 
 class Window:
-    def __init__(self):
+    def __init__(self, icon_filename):
         self.size = [800, 600]
         self.caption = "Gravity Slingshot"
+        self.icon_filename = icon_filename
         self.screen = None
         self.refresh_rate = 30
         self.fullscreen = False
@@ -38,6 +39,7 @@ class Window:
 
     def set(self):
         pygame.display.set_caption(self.caption)
+        pygame.display.set_icon(pygame.image.load(self.icon_filename))
         flag = 0
         if self.fullscreen:
             flag |= pygame.FULLSCREEN

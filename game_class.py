@@ -24,7 +24,7 @@ from channel import Channel
 
 class Game(Scene):
     def __init__(self):
-        self.window = Window()
+        self.window = Window("images/attractor1/attractor1_0.png")
         self.channel=Channel("music/loop")
         self.load_display()
         self.images = {}
