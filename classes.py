@@ -626,7 +626,7 @@ class Scene:
         self.camera_object_index = 0
         self.attraction = 1.0
         self.running = True
-        self.animation_period = 0.1
+        self.animation_period = 0.5
         self.animation_wait_time = 0.0
         self.time_goals = [20.0, 30.0, 50.0]
         self.time_limit = None
@@ -951,6 +951,7 @@ class Scene:
             self.resolve_collisions()
             self.check_end()
             self.update_camera()
+            self.animate()
             self.draw(self.clear_buffer)
             self.time.wait_frame(self.window.fps)
 
