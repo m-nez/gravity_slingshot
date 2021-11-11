@@ -25,3 +25,8 @@ Success
                 -size=[0.5, 1.0]
 		-down_action="self.scene.end();self.scene.game.change_level(1);self.scene.game.play_level()"
 		-shortcuts={pygame.K_RETURN, pygame.K_SPACE}
+	[restart_level_button
+		-location=[2.0, 2.0]
+                -size=[0.0, 0.0]
+		-down_action="self.scene.end();self.scene.game.play_level()"
+		-shortcuts={pygame.K_r}
