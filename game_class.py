@@ -118,7 +118,11 @@ class Game(Scene):
         if outcome[0] == 2:
             self.load_run("menus/fail.gsl")
         elif outcome[0] == 1:
-            self.load_run("menus/success.gsl")
+            # Last level
+            if len(self.levels) -1 == self.level_index:
+                self.load_run("menus/congratulations.gsl")
+            else:
+                self.load_run("menus/success.gsl")
         self.redraw_all_scenes()
     def error(self, text=None):
         if text != None:

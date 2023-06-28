@@ -1,23 +1,22 @@
-Help
+Congratulations
 
 >Scene
 	[level
-		-name="Credits"
+		-name="Congratulations"
 >VisibleObject
 	[background
 		-location=[0.5, 0.5]
 		-image_pack="background1"
 >TextWall
-   	[Prog_Des
+   	[congratulations
 		-location=[0.5, 0.1]
 		-size=[0.5,0.07]
 		-dimension_modifier=0.35
 		-color=[200,150,0]
 		-stretch=False
-		-text="Programming, Design:\nMichal Nieznanski\n\nMusic:\nGregoire Lourme"
-
+		-text="CONGRATULATIONS\nYour journey is complete.\nYou have found a safe harbour."
 >Button
 	[quit_screen_button
 		-location=[0.5, 0.5]
-		-down_action="self.scene.end()" 
+		-down_action="self.scene.end();self.scene.game.load_run('menus/credits.gsl')" 
 		-shortcuts={pygame.K_RETURN, pygame.K_SPACE}
