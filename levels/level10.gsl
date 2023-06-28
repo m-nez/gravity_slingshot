@@ -1,0 +1,64 @@
+Level 10
+#include ../level_components/level_base.gsl
+>PhysicalObject
+	[escape_pod
+		-name="planet"
+		-image_pack="escape_pod"
+		-mass=1.0
+		-radius=126
+		-location=[0,0]
+		-velocity=[0, 0]
+		-affected_by_gravity=True
+		-path.active = True
+		-path.image_pack="marker_white1"
+		-path.period = 1
+	[goal
+		-location=[600, -1000]
+		-goal = True
+		-image_pack="wormhole1"
+		-radius=180
+		-size=[1.5,1.5]
+	[attractor1
+		-location=[-2000,0]
+		-mass=2000
+		-size=[2,2]
+		-radius=255
+		-attractor=True
+		-image_pack="attractor1"
+	[attractor2
+		-location=[2000,0]
+		-mass=2000
+		-size=[2,2]
+		-radius=255
+		-attractor=True
+		-image_pack="attractor1"
+	[attractor3
+		-location=[0,-2000]
+		-mass=2000
+		-size=[2,2]
+		-radius=255
+		-attractor=True
+		-image_pack="attractor1"
+	[attractor4
+		-location=[0,2000]
+		-mass=2000
+		-size=[2,2]
+		-radius=255
+		-attractor=True
+		-image_pack="attractor1"
+	[royal1
+		-location=[-30000, 1300]
+		-obstacle=True
+		-image_pack="royal_cross"
+		-mass=200000000
+		-radius=256
+		-velocity=[4000,0]
+		-size=[2,2]
+	[royal2
+		-location=[-40000, 1300]
+		-obstacle=True
+		-image_pack="royal_cross"
+		-mass=200000000
+		-radius=256
+		-velocity=[4000,0]
+		-size=[2,2]
